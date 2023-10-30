@@ -41,3 +41,25 @@ A anotação @GeneratedValue é usada para especificar a estratégia de geraçã
 - UUID: A estratégia de geração de valor da chave primária será definida para UUID.
 
 Se você não especificar a estratégia de geração de valor da chave primária, o Hibernate usará a estratégia de geração de valor da chave primária AUTO.
+
+### Optional
+A classe Optional foi adicionada no Java 8 e é usada para representar um valor opcional que pode ser nulo ou não nulo. O objetivo principal dessa classe é evitar NullPointerException em códigos Java. 
+
+A classe Optional fornece muitos métodos úteis para verificar a presença de valor para evitar NullPointerException. 
+
+- Você pode usar o método isPresent () para verificar a presença de valor antes de chamar o método get (). 
+- Você pode usar o método orElse () para retornar um valor padrão se o valor não estiver presente. 
+- Você pode usar o método orElseGet () para retornar um valor padrão se o valor não estiver presente. 
+- Você pode usar o método orElseThrow () para lançar uma exceção se o valor não estiver presente. 
+- Você pode usar o método ifPresent () para executar alguma ação se o valor estiver presente. 
+- Você pode usar o método filter () para verificar a presença de valor e aplicar alguma condição para o valor. 
+- Você pode usar o método map () para verificar a presença de valor e aplicar alguma transformação no valor. 
+- Você pode usar o método flatMap () para verificar a presença de valor e aplicar alguma transformação no valor.
+
+### @Enumerated
+A anotação @Enumerated é usada para especificar a estratégia de mapeamento de enumeração. A enumeração pode ser mapeada para um dos seguintes tipos de dados:
+
+- String
+- Character
+- Integer
+- EnumType.ORDINAL: A enumeração será mapeada para o valor ordinal da enumeração.
