@@ -11,7 +11,8 @@ A interface UserDetails contém informações sobre o usuário, como nome de usu
 
 O Spring Security possui uma classe User que implementa a interface UserDetails. Como uma alternativa de criar sua propria classe, você pode usar a classe User do Spring Security.
 
-### Interface UserDetails
+### UserDetails
+
 ```java
 public interface UserDetails extends Serializable {
     Collection<? extends GrantedAuthority> getAuthorities();
@@ -22,7 +23,38 @@ public interface UserDetails extends Serializable {
     boolean isCredentialsNonExpired();
     boolean isEnabled();
 }
-```    
+```
+
+## JwtAuthenticationFilter
+O JwtAuthenticationFilter estende a classe OncePerRequestFilter, que é uma classe de filtro fornecida pelo Spring para fornecer um filtro que é executado uma vez para cada solicitação.
+
+O JwtAuthenticationFilter é usado para autenticar usuários e gerar um JWT para usuários válidos.
+
+### Metodos e atributos
+
+Ex1:
+<strong>final String authorizationHeader = request.getHeader("Authorization");</strong> 
+- Obtém o cabeçalho de autorização da solicitação.
+
+Ex2:
+
+```java
+if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+    chain.doFilter(request, response);
+    return;
+}
+```
+
+O if acima serve para verificar se o cabeçalho de autorização está presente e se começa com Bearer. Se não, o filtro passa a solicitação para o próximo filtro na cadeia.
+
+Ex3:
+
+```java
+jwt = authorizationHeader.substring(7);
+username = jwtService.extractUsername(jwt);
+```
+
+O código acima extrai o JWT do cabeçalho de autorização e extrai o nome de usuário do JWT.
 
 ## Novas informações
 Aqui colocarei algumas coisas que eu descobrir enquando fazia o curso
