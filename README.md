@@ -49,7 +49,7 @@ A interface UserDetails contém informações sobre o usuário, como nome de usu
 
 O Spring Security possui uma classe User que implementa a interface UserDetails. Como uma alternativa de criar sua propria classe, você pode usar a classe User do Spring Security.
 
-### UserDetails
+### Interface UserDetails
 
 ```java
 public interface UserDetails extends Serializable {
@@ -93,6 +93,74 @@ username = jwtService.extractUsername(jwt);
 ```
 
 O código acima extrai o JWT do cabeçalho de autorização e extrai o nome de usuário do JWT.
+
+## JwtService
+O JwtService é usado para gerar e validar o JWT.
+
+### Metodos e atributos
+
+Ex1:
+
+```java
+private static final String SECRET_KEY = "V3uL10sjniJIFfxllg1N2wVLzcF8OZWBz1Ux1gBD6A8iyMRpRMGHMlPmeZZ56jGP";
+```
+
+O código acima define a chave secreta usada para assinar o JWT.
+
+Ex2:
+
+```java
+private Key getSighingKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+```
+
+O código acima retorna a chave usada para assinar o JWT.
+
+Ex3:
+
+```java
+private Claims extractAllClaims(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(getSighingKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+```
+
+O código acima extrai todas as reivindicações do JWT.
+
+Ex4:
+
+```java
+public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+```
+
+O código acima extrai uma reivindicação específica do JWT.
+
+Ex5:
+
+```java
+public String generateToken(Map<String, Object> extraClaims,
+    UserDetails userDetails) {
+        return Jwts
+                .builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24 * 7))
+                .signWith(getSighingKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+```
+
+O código acima gera o JWT.
 
 ## Novas informações
 Aqui colocarei algumas coisas que eu descobrir enquando fazia o curso
