@@ -6,6 +6,44 @@ JWT (JSON Web Token) é um padrão da indústria (RFC-7519) que define como tran
 
 <img src="Capturar.PNG" alt="Project logo">
 
+### Estrutura
+Um JWT é composto por três partes separadas por um ponto (.):
+
+- Cabecalho
+- Carga útil
+- Assinatura
+
+Exemplo:
+
+<strong>Encoded</strong>
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+<strong>Decoded</strong>
+
+Header
+
+    {
+      "alg": "HS256",
+      "typ": "JWT"
+    }
+
+Payload
+
+    {
+      "sub": "1234567890",
+      "name": "John Doe",
+      "iat": 1516239022
+    }
+
+Signature
+
+    HMACSHA256(
+      base64UrlEncode(header) + "." +
+      base64UrlEncode(payload),
+      your-256-bit-secret
+    )
+
 ## UserDetails
 A interface UserDetails contém informações sobre o usuário, como nome de usuário, senha, autoridades e detalhes da conta.
 
