@@ -1,3 +1,6 @@
+Importante: esse codigo esta obsoleto e alguns metodos nele podem nao funcionar mais.
+
+
 # Spring Security
 Spring Security é uma estrutura de autenticação e controle de acesso poderosa e altamente personalizável. É o padrão para proteger aplicativos baseados em Spring.
 
